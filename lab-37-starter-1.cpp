@@ -49,21 +49,51 @@ int main() {
     }
     else cout << "File reading error.\n";
 
-    // Display first 100 map entries
-    // RBFL with break condition
-    int sentinel = 0;
+    // Not sure exactly what is meant by "Display just the first 100 map entries", so I'll just 
+    // do both possibilities
+
+    // // Display first 100 map entries
+    // // There's only 97 entries in the map, so this prints the whole thing
+    // // RBFL with break condition
+    // int sentinel = 0;
+    // for (const auto & pair : hashTable) {
+    //     // break condition, so I don't have to use a for loop
+    //     if (sentinel == NUM_ENTRIES_TO_PRINT) break;
+    //     cout <<  "[" << sentinel+1 << "]: Hash index: " << 
+    //         pair.first << "| Values: ";
+    //     // iterate over each std:: list and print everything in it
+    //     for (const auto & item : pair.second) {
+    //         cout << item << " ";
+    //     } 
+    //     cout << endl;
+    //     sentinel++;
+    // }
+
+    // Display first 100 codes (all technically in the first map entry in this case)
+    // I'm trying to make this flexible so it would still work for smaller data sets
+    int sentinel1 = 0;
+    bool exit = false;
     for (const auto & pair : hashTable) {
-        // break condition, so I don't have to use a for loop
-        if (sentinel == NUM_ENTRIES_TO_PRINT) break;
-        cout <<  "[" << sentinel+1 << "]: Hash index: " << 
+        // break condition for the outer loop
+        if (exit) break;
+        // Print hash index header
+        cout <<  "[" << sentinel1+1 << "]: Hash index: " << 
             pair.first << "| Values: ";
         // iterate over each std:: list and print everything in it
         for (const auto & item : pair.second) {
             cout << item << " ";
+            // checking condition in inner loop in case
+            // first hash index bucket contains more than 100 values
+            sentinel1++;
+            if (sentinel1 == NUM_ENTRIES_TO_PRINT) break;
+            exit = true;
+
         } 
         cout << endl;
-        sentinel++;
     }
+
+
+
     return 0;
 }
 
