@@ -22,43 +22,51 @@ int main() {
     // Create hash table
     map<int, list<string>> hashTable;
 
-    // Test
-    gen_hash_index("ABCD",hashTable);
-    gen_hash_index("1234",hashTable);
-    gen_hash_index("!!!!",hashTable);
-    // Print out the table
+    // // Test
+    // string s1 = "ABCD";
+    // string s2 = "ABCD";
+    // string s3 = "!!!!";
+    // cout << "Hash values should be: " << (sum_ascii(s1) % 97) <<
+    // " " << (sum_ascii(s2) % 97) << " " << (sum_ascii(s3) % 97) << endl;
+    // gen_hash_index(s1,hashTable);
+    // gen_hash_index(s2,hashTable);
+    // gen_hash_index(s3,hashTable);
+    // // Print out the table
+    // for (const auto & pair : hashTable) {
+    //     cout << "Hash index: " << pair.first << "| Values: ";
+    //     for (const auto & item : pair.second) {
+    //         cout << item << " ";
+    //     } 
+    //     cout << endl;
+    // }
+
+
+    // Read in file
+    string code;
+    ifstream fin("lab-37-data-3.txt");
+    if (fin.good()) {
+        while (fin >> code) {
+            gen_hash_index(code, hashTable);
+        }
+        fin.close();
+    }
+    else cout << "File reading error.\n";
+
+    // Display first 100 map entries
+    // RBFL with break condition
+    int sentinel = 1;
     for (const auto & pair : hashTable) {
-        cout << "Hash index: " << pair.first << "| Values: ";
+        if (sentinel == 100) break;
+        cout <<  "Hash index: " << pair.first << "| Values: ";
         for (const auto & item : pair.second) {
-            cout << item;
+            cout << item << " ";
         } 
         cout << endl;
+        sentinel++;
     }
 
 
-    // // Read in file
-    // string code;
-    // int ascii_total = 0;
-    // ifstream fin("lab-37-data-3.txt");
-    // if (fin.good()) {
-    //     while (fin >> code) {
-    //         ascii_total += sum_ascii(code);
-    //     }
-    //     fin.close();
-    // }
-    // else cout << "File reading error.\n";
-
-    // // Check correct output
-    // cout << "The correct total of all ASCII values in the file is 69893419\n";
-    // cout << "The calculated total of all ASCII values in the file is " <<
-    //     ascii_total << endl;
-
-    // // Correct output verified
-    // cout << sum_ascii("1111") << endl;
-    // cout << sum_ascii("2222") << endl;
-    // cout << sum_ascii("ABCD") << endl;
-
-    // return 0;
+    return 0;
 }
 
 /* 
