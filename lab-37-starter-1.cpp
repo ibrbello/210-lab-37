@@ -7,6 +7,7 @@
 using namespace std;
 
 const int NUM_ENTRIES_TO_PRINT = 100;
+const int MODULUS_OPERAND = 200000;
 void gen_hash_index(string code, map<int, list<string>> & );
 
 int main() {
@@ -49,51 +50,47 @@ int main() {
     }
     else cout << "File reading error.\n";
 
-    // Not sure exactly what is meant by "Display just the first 100 map entries", so I'll just 
-    // do both possibilities
+    // I got confused earlier because my modulus operand was so small
 
-    // // Display first 100 map entries
-    // // There's only 97 entries in the map, so this prints the whole thing
-    // // RBFL with break condition
-    // int sentinel = 0;
-    // for (const auto & pair : hashTable) {
-    //     // break condition, so I don't have to use a for loop
-    //     if (sentinel == NUM_ENTRIES_TO_PRINT) break;
-    //     cout <<  "[" << sentinel+1 << "]: Hash index: " << 
-    //         pair.first << "| Values: ";
-    //     // iterate over each std:: list and print everything in it
-    //     for (const auto & item : pair.second) {
-    //         cout << item << " ";
-    //     } 
-    //     cout << endl;
-    //     sentinel++;
-    // }
-
-    // Display first 100 codes (all technically in the first map entry in this case)
-    // I'm trying to make this flexible so it would still work for smaller data sets
-    int sentinel1 = 0;
-    bool exit = false;
+    // Display first 100 map entries
+    // There's only so many possible ASCII sum values, so this will still print a lot of values
+    // RBFL with break condition
+    int sentinel = 0;
     for (const auto & pair : hashTable) {
-        // break condition for the outer loop
-        if (exit) break;
-        // Print hash index header
-        cout <<  "[" << sentinel1+1 << "]: Hash index: " << 
+        // break condition, so I don't have to use a for loop
+        if (sentinel == NUM_ENTRIES_TO_PRINT) break;
+        cout <<  "[" << sentinel+1 << "]: Hash index: " << 
             pair.first << "| Values: ";
         // iterate over each std:: list and print everything in it
         for (const auto & item : pair.second) {
             cout << item << " ";
-            // checking condition in inner loop in case
-            // first hash index bucket contains more than 100 values
-            sentinel1++;
-            if (sentinel1 == NUM_ENTRIES_TO_PRINT) break;
-            exit = true;
-
         } 
         cout << endl;
+        sentinel++;
     }
 
+    // // Display first 100 codes 
+    // int sentinel1 = 0;
+    // bool exit = false;
+    // for (const auto & pair : hashTable) {
+    //     // break condition for the outer loop
+    //     if (exit) break;
+    //     // Print hash index header
+    //     cout <<  "[" << sentinel1+1 << "]: Hash index: " << 
+    //         pair.first << "| Values: ";
+    //     // iterate over each std:: list and print everything in it
+    //     for (const auto & item : pair.second) {
+    //         cout << item << " ";
+    //         // checking condition in inner loop in case
+    //         // first hash index bucket contains more than 100 values
+    //         sentinel1++;
+    //         if (sentinel1 == NUM_ENTRIES_TO_PRINT) break;
+    //         exit = true;
 
-
+    //     } 
+    //     cout << endl;
+    // }
+    
     return 0;
 }
 
@@ -114,8 +111,11 @@ void gen_hash_index(string code, map<int, list<string>> & hash ) {
     for (const char c : code) {
         sum += (int) c;
     }
-    // Hash function: modulus operator with modulus operand 97
-    int hashIndex = sum % 97;
+    // Hash modulus should be twice the size of the number of values
+    // There's about 100,000 values in the text file, so I'll make
+    // the modulus operand 200,000
+    // Hash function: modulus operator with modulus operand 200,000
+    int hashIndex = sum % MODULUS_OPERAND;
 
     // Insert the code in the correct bucket based on the hash index
     hash[hashIndex].push_back(code);
