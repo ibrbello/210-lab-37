@@ -87,6 +87,7 @@ int gen_hash_index(string code, map<int, list<string>> & hash ) {
     // Hash function: modulus operator with modulus operand 97
     int hashIndex = sum % 97;
     // Insert the code in the correct bucket based on the hash index
-    hash[hashIndex].emplace(code);
+    auto it = hash.find(hashIndex);
+    
    
 }
