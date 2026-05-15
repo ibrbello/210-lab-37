@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <map>
+#include <list>
 using namespace std;
 
 // Function sum_ascii: This function will receive a string
@@ -49,9 +51,21 @@ These targets are present in the dataset and can be used for testing:
 E1D2665B21EA 
 */
 
+// Will delete this after
 // Function sum_ascii: This function will receive a string
 // and return the sum of that string's ASCII values
 int sum_ascii(string code) {
+    int sum = 0; // Accumulator
+    // String is a sequence of chars, so use RBFL
+    for (const char c : code) {
+        sum += (int) c;
+    }
+    return sum;
+}
+
+// Function gen_hash_index: This function will receive a string
+// and return the sum of that string's ASCII values
+int gen_hash_index(string code) {
     int sum = 0; // Accumulator
     // String is a sequence of chars, so use RBFL
     for (const char c : code) {
