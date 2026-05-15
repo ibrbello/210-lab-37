@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 // Function sum_ascii: This function will receive a string
@@ -14,6 +15,23 @@ int main() {
     // int b = 66;
     // cout << b << endl;
     // cout << (char) b << endl;
+
+    // Read in file
+    string code;
+    int ascii_total = 0;
+    ifstream fin("lab-37-data-3.txt");
+    if (fin.good()) {
+        while (fin >> code) {
+            ascii_total += sum_ascii(code);
+        }
+        fin.close();
+    }
+    else cout << "File reading error.\n";
+
+    // Check correct output
+    cout << "The correct total of all ASCII values in the file is 69893419\n";
+    cout << "The calculated total of all ASCII values in the file is " <<
+        ascii_total << endl;
 
     // Correct output verified
     cout << sum_ascii("1111") << endl;
