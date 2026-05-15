@@ -7,7 +7,7 @@ using namespace std;
 
 
 int sum_ascii(string);
-int gen_hash_index(string code, map<int, list<string>> & );
+void gen_hash_index(string code, map<int, list<string>> & );
 
 
 
@@ -21,29 +21,44 @@ int main() {
 
     // Create hash table
     map<int, list<string>> hashTable;
-    // Read in file
-    string code;
-    int ascii_total = 0;
-    ifstream fin("lab-37-data-3.txt");
-    if (fin.good()) {
-        while (fin >> code) {
-            ascii_total += sum_ascii(code);
-        }
-        fin.close();
+
+    // Test
+    gen_hash_index("ABCD",hashTable);
+    gen_hash_index("1234",hashTable);
+    gen_hash_index("!!!!",hashTable);
+    // Print out the table
+    for (const auto & pair : hashTable) {
+        cout << "Hash index: " << pair.first << "| Values: ";
+        for (const auto & item : pair.second) {
+            cout << item;
+        } 
+        cout << endl;
     }
-    else cout << "File reading error.\n";
 
-    // Check correct output
-    cout << "The correct total of all ASCII values in the file is 69893419\n";
-    cout << "The calculated total of all ASCII values in the file is " <<
-        ascii_total << endl;
 
-    // Correct output verified
-    cout << sum_ascii("1111") << endl;
-    cout << sum_ascii("2222") << endl;
-    cout << sum_ascii("ABCD") << endl;
+    // // Read in file
+    // string code;
+    // int ascii_total = 0;
+    // ifstream fin("lab-37-data-3.txt");
+    // if (fin.good()) {
+    //     while (fin >> code) {
+    //         ascii_total += sum_ascii(code);
+    //     }
+    //     fin.close();
+    // }
+    // else cout << "File reading error.\n";
 
-    return 0;
+    // // Check correct output
+    // cout << "The correct total of all ASCII values in the file is 69893419\n";
+    // cout << "The calculated total of all ASCII values in the file is " <<
+    //     ascii_total << endl;
+
+    // // Correct output verified
+    // cout << sum_ascii("1111") << endl;
+    // cout << sum_ascii("2222") << endl;
+    // cout << sum_ascii("ABCD") << endl;
+
+    // return 0;
 }
 
 /* 
@@ -68,7 +83,7 @@ int sum_ascii(string code) {
 
 // Function gen_hash_index: This function will receive a string
 // and add that string to a hash table.
-int gen_hash_index(string code, map<int, list<string>> & hash ) {
+void gen_hash_index(string code, map<int, list<string>> & hash ) {
 
     /*
     1.When codes are read from the file, send the code to your function.
@@ -86,8 +101,8 @@ int gen_hash_index(string code, map<int, list<string>> & hash ) {
 
     // Hash function: modulus operator with modulus operand 97
     int hashIndex = sum % 97;
+
     // Insert the code in the correct bucket based on the hash index
-    auto it = hash.find(hashIndex);
-    
+    hash[hashIndex].push_back(code);
    
 }
