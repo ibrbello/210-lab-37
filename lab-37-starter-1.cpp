@@ -15,6 +15,7 @@ int main() {
     // cout << b << endl;
     // cout << (char) b << endl;
 
+    // Correct output verified
     cout << sum_ascii("1111") << endl;
     cout << sum_ascii("2222") << endl;
     cout << sum_ascii("ABCD") << endl;
