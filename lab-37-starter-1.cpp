@@ -55,7 +55,7 @@ int main() {
         // Things to add:
     // Menu
     // Functionalities:
-    // 1. print first 100 entries
+    // 1. print first 100 entries (done)
     // 2. search for a key
     // 3. add a key
     // 4. remove a key
@@ -77,14 +77,24 @@ int main() {
             case 1:
                 print_x_entries(hashTable);
                 break;
-            case 2:
+            case 2: {
+            string searchCode;
+            cout << "Enter the code to search: ";
+            cin >> searchCode;
+            if (search_hash(searchCode, hashTable))
+                cout << "Code found!\n";
+            else cout << "Code not found.\n";
+            break;
+            }
+            case 3: {
+                    break;
+            }
+            case 4: {
                 break;
-            case 3:
+            }
+            case 5: {
                 break;
-            case 4:
-                break;
-            case 5:
-                break;
+            }
             case 6:
                 cout << "Goodbye!";
                 break;  
@@ -167,7 +177,16 @@ void print_x_entries(map<int, list<string>> const & hashTable) {
     }
 
 }
-bool search_hash(string code, map<int, list<string>> const &);
+bool search_hash(string code, map<int, list<string>> const & hashTable) {
+    // iterate over the hash table
+    for (const auto & pair : hashTable) {
+        for (const auto & item : pair.second) {
+            if (code == item) return true;
+
+    }
+    return false;
+    }
+}
 void add_key(string code, map<int, list<string>> & );
 void remove_key(string code, map<int, list<string>> & );
 void modify_key(string code, map<int, list<string>> & );
