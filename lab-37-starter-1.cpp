@@ -182,10 +182,9 @@ bool search_hash(string code, map<int, list<string>> const & hashTable) {
     for (const auto & pair : hashTable) {
         for (const auto & item : pair.second) {
             if (code == item) return true;
-
+        }
     }
     return false;
-    }
 }
 void add_key(string code, map<int, list<string>> & );
 void remove_key(string code, map<int, list<string>> & );
