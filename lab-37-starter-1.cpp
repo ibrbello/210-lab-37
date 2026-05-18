@@ -9,14 +9,15 @@ using namespace std;
 const int NUM_ENTRIES_TO_PRINT = 30;
 const int MODULUS_OPERAND = 200000;
 void gen_hash_index(string code, map<int, list<string>> & );
+void print_x_entries(map<int, list<string>> const &);
+bool search_hash(string code, map<int, list<string>> const &);
+void add_key(string code, map<int, list<string>> & );
+void remove_key(string code, map<int, list<string>> & );
+void modify_key(string code, map<int, list<string>> & );
 
 int main() {
-    // char a = 'A';
-    // cout << a << endl;
-    // cout << (int) a << endl;
-    // int b = 66;
-    // cout << b << endl;
-    // cout << (char) b << endl;
+
+
 
     // Create hash table
     map<int, list<string>> hashTable;
@@ -39,6 +40,7 @@ int main() {
     //     cout << endl;
     // }
 
+
     // Read in file
     string code;
     ifstream fin("lab-37-data-3.txt");
@@ -50,24 +52,50 @@ int main() {
     }
     else cout << "File reading error.\n";
 
-    // I got confused earlier because my modulus operand was so small
+        // Things to add:
+    // Menu
+    // Functionalities:
+    // 1. print first 100 entries
+    // 2. search for a key
+    // 3. add a key
+    // 4. remove a key
+    // 5. modify a key
+    // 6. exit
 
-    // Display first 100 map entries
-    // There's only so many possible ASCII sum values, so this will still print a lot of values
-    // RBFL with break condition
-    int sentinel = 0;
-    for (const auto & pair : hashTable) {
-        // break condition, so I don't have to use a for loop
-        if (sentinel == NUM_ENTRIES_TO_PRINT) break;
-        cout <<  "[" << sentinel+1 << "]: Hash index: " << 
-            pair.first << "| Values: ";
-        // iterate over each std:: list and print everything in it
-        for (const auto & item : pair.second) {
-            cout << item << " ";
-        } 
-        cout << endl;
-        sentinel++;
-    }
+    int option = 0;
+    do {
+        cout << "[1] Display first 100 map entries\n";
+        cout << "[2] Search for a key\n";
+        cout << "[3] Add a key\n";
+        cout << "[4] Remove a key\n";
+        cout << "[5] Modify a key\n";
+        cout << "[6] Exit\n";
+        cout << "Choose an option: ";
+        cin >> option;
+
+        switch (option) {
+            case 1:
+                print_x_entries(hashTable);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                cout << "Goodbye!";
+                break;  
+            default: 
+                cout << "Invalid option. Please choose option between 1-6\n";
+                break;
+        }
+    } while (option != 6);
+
+
+ 
 
     // // Display first 100 codes 
     // int sentinel1 = 0;
@@ -120,3 +148,26 @@ void gen_hash_index(string code, map<int, list<string>> & hash ) {
     // Insert the code in the correct bucket based on the hash index
     hash[hashIndex].push_back(code);
 }
+
+// Function prints x number of entries, based on the NUM_ENTRIES_TO_PRINT
+// constant
+void print_x_entries(map<int, list<string>> const & hashTable) {
+    int sentinel = 0;
+    for (const auto & pair : hashTable) {
+        // break condition, so I don't have to use a for loop
+        if (sentinel == NUM_ENTRIES_TO_PRINT) break;
+        cout <<  "[" << sentinel+1 << "]: Hash index: " << 
+            pair.first << "| Values: ";
+        // iterate over each std:: list and print everything in it
+        for (const auto & item : pair.second) {
+            cout << item << " ";
+        } 
+        cout << endl;
+        sentinel++;
+    }
+
+}
+bool search_hash(string code, map<int, list<string>> const &);
+void add_key(string code, map<int, list<string>> & );
+void remove_key(string code, map<int, list<string>> & );
+void modify_key(string code, map<int, list<string>> & );
