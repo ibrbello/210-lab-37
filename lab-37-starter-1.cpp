@@ -11,7 +11,7 @@ const int MODULUS_OPERAND = 200000;
 void gen_hash_index(string code, map<int, list<string>> & );
 void print_x_entries(map<int, list<string>> const &);
 bool search_hash(string code, map<int, list<string>> const &);
-void remove_key(string code, map<int, list<string>> & );
+bool remove_key(string code, map<int, list<string>> & );
 void modify_key(string code, map<int, list<string>> & );
 
 int main() {
@@ -95,6 +95,16 @@ int main() {
                 break;
             }
             case 4: {
+                string doomedCode;
+                cout << "Enter the code to delete: ";
+                cin >> doomedCode;
+                if (tree.searchNode(doomedCode)) {
+                    tree.remove(doomedCode);
+                    cout << "Code deleted.\n";
+                }
+                else cout << "Code not in tree, so can't delete.\n";
+                break;
+
                 break;
             }
             case 5: {
@@ -191,5 +201,22 @@ bool search_hash(string code, map<int, list<string>> const & hashTable) {
     }
     return false;
 }
-void remove_key(string code, map<int, list<string>> & );
-void modify_key(string code, map<int, list<string>> & );
+bool remove_key(string code, map<int, list<string>> & hashTable ) {
+    // iterate over the table. if key is found, delete it
+    
+    for (const auto & pair : hashTable) {
+        int i = 0;
+        // use iterator to iterate through each list
+        for (auto it = pair.second.begin(); it != pair.second.end(); ++it, ++i) {
+            if (code == it->) return true;
+
+        }
+
+        for (const auto & item : pair.second) {
+            if (code == item) return true;
+        }
+    }
+    return false;
+
+}
+void modify_key(string code, map<int, list<string>> & hashTable );
