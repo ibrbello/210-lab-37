@@ -6,7 +6,7 @@
 #include <list>
 using namespace std;
 
-const int NUM_ENTRIES_TO_PRINT = 30;
+const int NUM_ENTRIES_TO_PRINT = 100;
 const int MODULUS_OPERAND = 200000;
 void gen_hash_index(string, map<int, list<string>> & );
 void print_x_entries(map<int, list<string>> const &);
@@ -15,30 +15,8 @@ bool remove_key(string, map<int, list<string>> & );
 bool modify_key(string, string, map<int, list<string>> & );
 
 int main() {
-
-
-
     // Create hash table
     map<int, list<string>> hashTable;
-
-    // // Test
-    // string s1 = "ABCD";
-    // string s2 = "ABCD";
-    // string s3 = "!!!!";
-    // cout << "Hash values should be: " << (sum_ascii(s1) % 97) <<
-    // " " << (sum_ascii(s2) % 97) << " " << (sum_ascii(s3) % 97) << endl;
-    // gen_hash_index(s1,hashTable);
-    // gen_hash_index(s2,hashTable);
-    // gen_hash_index(s3,hashTable);
-    // // Print out the table
-    // for (const auto & pair : hashTable) {
-    //     cout << "Hash index: " << pair.first << "| Values: ";
-    //     for (const auto & item : pair.second) {
-    //         cout << item << " ";
-    //     } 
-    //     cout << endl;
-    // }
-
 
     // Read in file
     string code;
@@ -50,16 +28,6 @@ int main() {
         fin.close();
     }
     else cout << "File reading error.\n";
-
-        // Things to add:
-    // Menu
-    // Functionalities:
-    // 1. print first 100 entries (done)
-    // 2. search for a key
-    // 3. add a key
-    // 4. remove a key
-    // 5. modify a key
-    // 6. exit
 
     int option = 0;
     do {
@@ -91,7 +59,6 @@ int main() {
                 cin >> newCode;
                 gen_hash_index(newCode, hashTable);
                 cout << "Code inserted.\n";
-
                 break;
             }
             case 4: {
@@ -101,13 +68,19 @@ int main() {
                 if (remove_key(doomedCode, hashTable)) {
                     cout << "Code deleted.\n";
                 }
-                else cout << "Code not in tree, so can't delete.\n";
-                break;
-
+                else cout << "Code not found, so can't delete.\n";
                 break;
             }
             case 5: {
-                
+                string codeToModify, newCode;
+                cout << "Enter the code to change: ";
+                cin >> codeToModify;
+                cout << "Enter the modified code to replace it: ";
+                cin >> newCode;
+                if (modify_key(codeToModify, newCode, hashTable)) {
+                    cout << "Code modified.\n";
+                }
+                else cout << "Code not found, so not modified.\n";
                 break;
             }
             case 6:
@@ -118,31 +91,6 @@ int main() {
                 break;
         }
     } while (option != 6);
-
-
- 
-
-    // // Display first 100 codes 
-    // int sentinel1 = 0;
-    // bool exit = false;
-    // for (const auto & pair : hashTable) {
-    //     // break condition for the outer loop
-    //     if (exit) break;
-    //     // Print hash index header
-    //     cout <<  "[" << sentinel1+1 << "]: Hash index: " << 
-    //         pair.first << "| Values: ";
-    //     // iterate over each std:: list and print everything in it
-    //     for (const auto & item : pair.second) {
-    //         cout << item << " ";
-    //         // checking condition in inner loop in case
-    //         // first hash index bucket contains more than 100 values
-    //         sentinel1++;
-    //         if (sentinel1 == NUM_ENTRIES_TO_PRINT) break;
-    //         exit = true;
-
-    //     } 
-    //     cout << endl;
-    // }
 
     return 0;
 }
@@ -190,8 +138,9 @@ void print_x_entries(map<int, list<string>> const & hashTable) {
         cout << endl;
         sentinel++;
     }
-
 }
+
+// This function returns true if the target code is found, false otherwise
 bool search_hash(string code, map<int, list<string>> const & hashTable) {
     // iterate over the hash table
     for (const auto & pair : hashTable) {
@@ -199,8 +148,12 @@ bool search_hash(string code, map<int, list<string>> const & hashTable) {
             if (code == item) return true;
         }
     }
+    // if code not found, return false
     return false;
 }
+
+// This function returns true if the target code is found and removed,
+// false otherwise
 bool remove_key(string code, map<int, list<string>> & hashTable ) {
     // iterate over the table. if key is found, delete it
     
@@ -215,9 +168,12 @@ bool remove_key(string code, map<int, list<string>> & hashTable ) {
             else ++it;
         }
     }
+    // if code not found, return false
     return false;
-
 }
+
+// This function returns true if the target code is found and modified,
+// false otherwise
 bool modify_key(string codeToModify, string newCode, map<int, list<string>> & hashTable ) {
     for ( auto & pair : hashTable) {
         // use iterator to iterate through each list
