@@ -8,11 +8,11 @@ using namespace std;
 
 const int NUM_ENTRIES_TO_PRINT = 30;
 const int MODULUS_OPERAND = 200000;
-void gen_hash_index(string code, map<int, list<string>> & );
+void gen_hash_index(string, map<int, list<string>> & );
 void print_x_entries(map<int, list<string>> const &);
-bool search_hash(string code, map<int, list<string>> const &);
-bool remove_key(string code, map<int, list<string>> & );
-void modify_key(string code, map<int, list<string>> & );
+bool search_hash(string, map<int, list<string>> const &);
+bool remove_key(string, map<int, list<string>> & );
+bool modify_key(string, string, map<int, list<string>> & );
 
 int main() {
 
@@ -107,6 +107,7 @@ int main() {
                 break;
             }
             case 5: {
+                
                 break;
             }
             case 6:
@@ -217,4 +218,18 @@ bool remove_key(string code, map<int, list<string>> & hashTable ) {
     return false;
 
 }
-void modify_key(string code, map<int, list<string>> & hashTable );
+bool modify_key(string codeToModify, string newCode, map<int, list<string>> & hashTable ) {
+    for ( auto & pair : hashTable) {
+        // use iterator to iterate through each list
+        for (auto it = pair.second.begin(); it != pair.second.end(); ) {
+            if (codeToModify == *it) {
+                *it = newCode;
+                return true;
+            } 
+            // only move on to next item in the list if value doesn't mach code
+            else ++it;
+        }
+    }
+    // if code not found, return false
+    return false;
+}
