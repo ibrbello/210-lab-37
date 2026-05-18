@@ -6,7 +6,7 @@
 #include <list>
 using namespace std;
 
-const int NUM_ENTRIES_TO_PRINT = 100;
+const int NUM_ENTRIES_TO_PRINT = 30;
 const int MODULUS_OPERAND = 200000;
 void gen_hash_index(string code, map<int, list<string>> & );
 
@@ -90,7 +90,7 @@ int main() {
     //     } 
     //     cout << endl;
     // }
-    
+
     return 0;
 }
 
