@@ -98,8 +98,7 @@ int main() {
                 string doomedCode;
                 cout << "Enter the code to delete: ";
                 cin >> doomedCode;
-                if (tree.searchNode(doomedCode)) {
-                    tree.remove(doomedCode);
+                if (remove_key(doomedCode, hashTable)) {
                     cout << "Code deleted.\n";
                 }
                 else cout << "Code not in tree, so can't delete.\n";
@@ -204,16 +203,15 @@ bool search_hash(string code, map<int, list<string>> const & hashTable) {
 bool remove_key(string code, map<int, list<string>> & hashTable ) {
     // iterate over the table. if key is found, delete it
     
-    for (const auto & pair : hashTable) {
-        int i = 0;
+    for ( auto & pair : hashTable) {
         // use iterator to iterate through each list
-        for (auto it = pair.second.begin(); it != pair.second.end(); ++it, ++i) {
-            if (code == it->) return true;
-
-        }
-
-        for (const auto & item : pair.second) {
-            if (code == item) return true;
+        for (auto it = pair.second.begin(); it != pair.second.end(); ) {
+            if (code == *it) {
+                pair.second.erase(it);
+                return true;
+            } 
+            // only move on to next item in the list if value doesn't mach code
+            else ++it;
         }
     }
     return false;
