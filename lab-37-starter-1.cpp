@@ -11,7 +11,6 @@ const int MODULUS_OPERAND = 200000;
 void gen_hash_index(string code, map<int, list<string>> & );
 void print_x_entries(map<int, list<string>> const &);
 bool search_hash(string code, map<int, list<string>> const &);
-void add_key(string code, map<int, list<string>> & );
 void remove_key(string code, map<int, list<string>> & );
 void modify_key(string code, map<int, list<string>> & );
 
@@ -87,7 +86,13 @@ int main() {
             break;
             }
             case 3: {
-                    break;
+                string newCode;
+                cout << "Enter your new code: ";
+                cin >> newCode;
+                gen_hash_index(newCode, hashTable);
+                cout << "Code inserted.\n";
+
+                break;
             }
             case 4: {
                 break;
@@ -186,6 +191,5 @@ bool search_hash(string code, map<int, list<string>> const & hashTable) {
     }
     return false;
 }
-void add_key(string code, map<int, list<string>> & );
 void remove_key(string code, map<int, list<string>> & );
 void modify_key(string code, map<int, list<string>> & );
